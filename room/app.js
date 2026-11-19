@@ -219,7 +219,7 @@ const frames = WORKS.map((w, i) => {
   const lip = new THREE.Mesh(new THREE.BoxGeometry(SCREEN.w + 0.03, SCREEN.h + 0.03, 0.074), new THREE.MeshStandardMaterial({ color: 0x020202, roughness: 0.8 }));
   lip.position.set(0, SCREEN.y, 0.035); g.add(lip);
 
-  const poster = loader.load(`media/${w.id}.jpg`); poster.colorSpace = THREE.SRGBColorSpace;
+  const poster = loader.load(`../media/${w.id}.jpg`); poster.colorSpace = THREE.SRGBColorSpace;
   const scrMat = new THREE.MeshBasicMaterial({ map: poster, toneMapped: false, color: new THREE.Color(0.92, 0.92, 0.92) });
   const scr = new THREE.Mesh(new THREE.PlaneGeometry(SCREEN.w, SCREEN.h), scrMat);
   scr.position.set(0, SCREEN.y, 0.074); g.add(scr);
@@ -387,7 +387,7 @@ function ensureVideo(f) {
   if (f.video) return f.video;
   const v = document.createElement('video');
   v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); v.preload = 'auto';
-  v.src = `media/${f.w.id}.mp4`;
+  v.src = `../media/${f.w.id}.mp4`;
   f.video = v; f.vtex = new THREE.VideoTexture(v); f.vtex.colorSpace = THREE.SRGBColorSpace;
   v.addEventListener('playing', () => { if (f.scrMat.map !== f.vtex) { f.scrMat.map = f.mirMat.map = f.vtex; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; } });
   return v;
