@@ -278,9 +278,25 @@ const frames = WORKS.map((w, i) => {
   sign.position.set(0, 3.02, ROOM.z0 + 0.03); sign.scale.setScalar(0.74); scene.add(sign);
     // (no floor reflection for the sign: it read as a glitch)
   const pl = new THREE.PointLight(0xffb060, 2.4, 4.0, 2); pl.position.set(0, 2.95, ROOM.z0 + 0.5); scene.add(pl);
-  const sub = canvasTex(1024, 90, (c, w, h) => { c.fillStyle = '#b9b2a6'; c.font = '300 40px ui-sans-serif, system-ui, sans-serif'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('tiny films · strange worlds · big imagination', w / 2, h / 2); });
-  const s2 = new THREE.Mesh(new THREE.PlaneGeometry(2.0, 0.176), new THREE.MeshBasicMaterial({ map: sub, transparent: true, depthWrite: false }));
-  s2.position.set(ROOM.x1 - 0.02, 1.72, 2.0); s2.rotation.y = -Math.PI / 2; scene.add(s2);
+  // right wall: the tagline as three neon lines in the series colours
+  const tag = canvasTex(1024, 640, (c, w, h) => {
+    c.clearRect(0, 0, w, h); c.textAlign = 'left'; c.textBaseline = 'middle';
+    const line = (txt, y, col) => {
+      let px = 112; c.font = `800 ${px}px "Helvetica Neue", Arial, sans-serif`;
+      while (c.measureText(txt).width > w - 100 && px > 40) { px -= 4; c.font = `800 ${px}px "Helvetica Neue", Arial, sans-serif`; }
+      c.shadowColor = col; c.shadowBlur = 34; c.strokeStyle = col; c.lineWidth = 9; c.strokeText(txt, 40, y);
+      c.shadowBlur = 10; c.strokeStyle = '#fff7e0'; c.lineWidth = 3; c.strokeText(txt, 40, y);
+    };
+    line('TINY FILMS.', 120, '#ffcf3f');
+    line('STRANGE WORLDS.', 320, '#7fe0c8');
+    line('BIG IMAGINATION.', 520, '#ff6a5a');
+  });
+  const s2 = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 1.875), new THREE.MeshBasicMaterial({ map: tag, transparent: true, toneMapped: false, color: new THREE.Color(1.6, 1.6, 1.6), depthWrite: false, blending: THREE.AdditiveBlending }));
+  s2.position.set(ROOM.x1 - 0.03, 1.85, 2.25); s2.rotation.y = -Math.PI / 2; scene.add(s2);
+  // colour spill on the wall around the letters
+  [[0xffcf3f, 2.45], [0x7fe0c8, 1.85], [0xff6a5a, 1.25]].forEach(([col, y]) => {
+    const l = new THREE.PointLight(col, 1.6, 2.6, 2); l.position.set(ROOM.x1 - 0.45, y, 2.25); scene.add(l);
+  });
 }
 
 // ---------------------------------------------------------------- dust in the light
@@ -363,40 +379,35 @@ function focusWork(i) {
   const stand = f.center.clone().addScaledVector(f.normal, MOBILE ? 2.3 : 1.9).setY(0);
   clampPos(stand);
   const a = lookAngles(stand.clone().setY(EYE), f.center);
-  setActive(i);
   tweenTo(stand, a.yaw, a.pitch, 1.0, () => openModal(i));
 }
 
-// ---------------------------------------------------------------- active clip: only one video decodes at a time
-let active = -1;
-function setActive(i) {
-  if (i === active) return;
-  if (active >= 0) { const f = frames[active]; if (f.video) f.video.pause(); f.scrMat.map = f.mirMat.map = f.poster; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; }
-  active = i;
-  if (i < 0) return;
-  const f = frames[i];
-  if (!f.video) {
-    const v = document.createElement('video');
-    v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); v.preload = 'auto';
-    v.src = `media/${f.w.id}.mp4`;
-    f.video = v; f.vtex = new THREE.VideoTexture(v); f.vtex.colorSpace = THREE.SRGBColorSpace;
-    v.addEventListener('playing', () => { if (active === frames.indexOf(f)) { f.scrMat.map = f.mirMat.map = f.vtex; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; } });
-  }
-  f.video.play().catch(() => {});
-  if (!f.video.paused) { f.scrMat.map = f.mirMat.map = f.vtex; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; }
+// ---------------------------------------------------------------- wall clips: every film loops; off-screen ones pause to save battery
+const frustum = new THREE.Frustum(), projM = new THREE.Matrix4();
+function ensureVideo(f) {
+  if (f.video) return f.video;
+  const v = document.createElement('video');
+  v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('muted', ''); v.preload = 'auto';
+  v.src = `media/${f.w.id}.mp4`;
+  f.video = v; f.vtex = new THREE.VideoTexture(v); f.vtex.colorSpace = THREE.SRGBColorSpace;
+  v.addEventListener('playing', () => { if (f.scrMat.map !== f.vtex) { f.scrMat.map = f.mirMat.map = f.vtex; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; } });
+  return v;
 }
-function pickActive() {
-  const fwd = new THREE.Vector3(); camera.getWorldDirection(fwd);
-  let best = -1, bestS = Infinity;
-  frames.forEach((f, i) => {
-    const to = f.center.clone().sub(camera.position), d = to.length(); to.normalize();
-    const facing = fwd.dot(to), front = -to.dot(f.normal);
-    if (facing < 0.6 || front < 0.15 || d > 7.5) return;
-    const s = d * (1.6 - facing) - (i === active ? 0.6 : 0);
-    if (s < bestS) { bestS = s; best = i; }
+let clipsPaused = false;
+function updateVideos() {
+  projM.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); frustum.setFromProjectionMatrix(projM);
+  frames.forEach((f) => {
+    const v = ensureVideo(f);
+    const toCam = camera.position.clone().sub(f.center);
+    const seen = !clipsPaused && toCam.dot(f.normal) > 0 && frustum.intersectsObject(f.scr);
+    if (seen && v.paused) v.play().catch(() => {});
+    else if (!seen && !v.paused) v.pause();
   });
-  setActive(best);
 }
+const playAll = () => { clipsPaused = false; frames.forEach((f) => ensureVideo(f).play().catch(() => {})); };
+const pauseAll = () => { clipsPaused = true; frames.forEach((f) => f.video && f.video.pause()); };
+// stagger start points so the six loops don't flick in sync
+frames.forEach((f, i) => { const v = ensureVideo(f); v.addEventListener('loadedmetadata', () => { v.currentTime = (i * 1.37) % Math.max(1, v.duration - 0.5); }, { once: true }); });
 
 // ---------------------------------------------------------------- modal player
 const modal = $('#modal'), vidBox = $('#vidBox');
@@ -406,11 +417,11 @@ function openModal(i) {
   $('#mYt').href = `https://www.youtube.com/shorts/${w.id}`;
   vidBox.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${w.id}?autoplay=1&rel=0&playsinline=1&modestbranding=1" title="${w.title.replace(/"/g, '&quot;')}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   modal.classList.remove('hide'); P.mode = 'modal';
-  if (frames[i].video) frames[i].video.pause();
+  pauseAll();
 }
 function closeModal() {
   vidBox.innerHTML = ''; modal.classList.add('hide'); P.mode = 'walk';
-  if (active >= 0 && frames[active].video) frames[active].video.play().catch(() => {});
+  playAll();
 }
 $('#closeBtn').addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
@@ -490,7 +501,7 @@ function start() {
   tweenTo(new THREE.Vector3(0.6, 0, 4.0), a.yaw, a.pitch, 1.6);
   P.mode = 'walk';
   // unlock video playback on iOS inside the user gesture
-  frames.forEach((f, i) => { if (i === active && f.video) f.video.play().catch(() => {}); });
+  playAll();
 }
 enter.addEventListener('click', start);
 
@@ -532,7 +543,7 @@ function frame() {
   camera.updateMatrixWorld();
 
   pickT += dt;
-  if (pickT > 0.4 && P.mode !== 'modal') { pickT = 0; pickActive(); }
+  if (pickT > 0.4) { pickT = 0; updateVideos(); }
 
   dust.uniforms.uTime.value = t;
   grain.uniforms.uTime.value = t; grain.uniforms.uFade.value = fade;
