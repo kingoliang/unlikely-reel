@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>The Unlikely Reel — a small cinema of strange worlds</title>
+<meta name="description" content="Tiny films. Strange worlds. Big imagination. Walk into a little 3D screening room and watch AI-made short films from The Unlikely Reel." />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Unlikely Reel — a small cinema of strange worlds" />
+<meta property="og:description" content="Tiny films. Strange worlds. Big imagination. Walk in and pick a film off the wall." />
+<meta property="og:image" content="https://kingoliang.github.io/unlikely-reel/og.jpg" />
+<meta property="og:url" content="https://kingoliang.github.io/unlikely-reel/" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦆</text></svg>" />
+<style>
+  :root { --ink: #e9e4da; --dim: #9a958c; --accent: #ffcf3f; --red: #ff3d3d; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #07080a; color: var(--ink); font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+  canvas#c { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; touch-action: none; outline: none; }
+  .hide { display: none !important; }
+
+  /* intro */
+  #intro { position: fixed; inset: 0; display: grid; place-items: center; background: radial-gradient(ellipse at center, rgba(7,8,10,.35), rgba(7,8,10,.92) 70%); z-index: 10; transition: opacity .9s; }
+  #intro .box { text-align: center; padding: 24px; max-width: 560px; }
+  #intro .kicker { letter-spacing: .42em; font-size: 12px; color: var(--dim); text-transform: uppercase; }
+  #intro h1 { font-weight: 300; font-size: clamp(34px, 7vw, 64px); margin: .25em 0 .1em; letter-spacing: .04em; }
+  #intro h1 b { color: var(--accent); font-weight: 500; }
+  #intro p { color: var(--dim); line-height: 1.6; margin: .6em 0 1.6em; }
+  #enter { font: inherit; font-size: 14px; letter-spacing: .3em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid rgba(233,228,218,.45); padding: 14px 30px; cursor: pointer; border-radius: 2px; transition: background .2s, border-color .2s; }
+  #enter:hover { background: rgba(255,207,63,.12); border-color: var(--accent); }
+  #enter[disabled] { opacity: .45; cursor: wait; }
+  #intro .how { margin-top: 1.4em; font-size: 12px; color: #6f6b64; letter-spacing: .06em; }
+
+  /* hud */
+  #hud { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: flex-end; padding: 14px max(16px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); pointer-events: none; z-index: 5; font-size: 12px; color: var(--dim); letter-spacing: .08em; }
+  #hud button, #hud a { pointer-events: auto; }
+  .btn { font: inherit; color: var(--ink); background: rgba(10,11,14,.6); border: 1px solid rgba(233,228,218,.22); padding: 9px 14px; border-radius: 2px; cursor: pointer; text-decoration: none; backdrop-filter: blur(6px); letter-spacing: .14em; text-transform: uppercase; font-size: 11px; }
+  .btn:hover { border-color: var(--accent); }
+  #tip { position: fixed; pointer-events: none; z-index: 6; font-size: 12px; padding: 6px 9px; background: rgba(10,11,14,.8); border: 1px solid rgba(255,207,63,.45); border-radius: 2px; transform: translate(14px, 14px); white-space: nowrap; }
+
+  /* works list: also the no-WebGL fallback and what crawlers read */
+  #works { position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: 62px; z-index: 7; width: min(380px, calc(100vw - 32px)); max-height: 70vh; overflow: auto; background: rgba(10,11,14,.88); border: 1px solid rgba(233,228,218,.16); backdrop-filter: blur(10px); padding: 16px 18px; border-radius: 3px; }
+  #works h2 { margin: 0 0 4px; font-weight: 400; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--dim); }
+  #works h3 { margin: 14px 0 6px; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+  #works ol { list-style: none; margin: 0; padding: 0; }
+  #works li a { display: block; color: var(--ink); text-decoration: none; padding: 7px 0; border-bottom: 1px solid rgba(233,228,218,.07); line-height: 1.35; font-size: 14px; }
+  #works li a:hover { color: var(--accent); }
+  #works .sub { margin-top: 14px; font-size: 13px; }
+  #works .sub a { color: var(--accent); }
+  body.nogl #works { position: static; margin: 8vh auto; display: block !important; max-height: none; }
+  body.nogl { overflow: auto; }
+
+  /* player modal */
+  #modal { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; background: rgba(3,3,5,.82); backdrop-filter: blur(4px); }
+  #modal .card { display: flex; gap: 22px; align-items: center; padding: 20px; max-width: 94vw; }
+  #modal .vid { height: min(78vh, 160vw); aspect-ratio: 9 / 16; background: #000; border: 1px solid rgba(233,228,218,.18); }
+  #modal iframe { width: 100%; height: 100%; border: 0; display: block; }
+  #modal .meta { max-width: 300px; }
+  #modal .series { font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: var(--accent); }
+  #modal h2 { font-weight: 400; font-size: 24px; line-height: 1.25; margin: .4em 0 .6em; }
+  #modal p { color: var(--dim); font-size: 14px; line-height: 1.55; }
+  #modal .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px; }
+  #modal .close { position: fixed; top: max(14px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); }
+  .red { border-color: rgba(255,61,61,.7) !important; }
+  @media (max-width: 720px) {
+    #hint { display: none; }
+    #modal .card { flex-direction: column; gap: 12px; padding: 10px; }
+    #modal .vid { height: 66vh; }
+    #modal .meta { text-align: center; }
+    #modal h2 { font-size: 18px; margin: .2em 0; }
+    #modal p { display: none; }
+    #modal .row { justify-content: center; margin-top: 8px; }
+  }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="c" tabindex="0" aria-label="3D screening room"></canvas>
+
+<div id="intro">
+  <div class="box">
+    <div class="kicker">a small cinema of strange worlds</div>
+    <h1>The <b>Unlikely</b> Reel</h1>
+    <p>Tiny films. Strange worlds. Big imagination.<br/>Walk in and pick a film off the wall.</p>
+    <button id="enter" disabled>loading…</button>
+    <div class="how" id="how">drag to look · click the floor to walk · click a film to watch · WASD to move</div>
+  </div>
+</div>
+
+<div id="hud" class="hide">
+  <button class="btn" id="worksBtn">Films ▴</button>
+  <span id="hint">drag to look · click floor to walk · click a film</span>
+  <a class="btn red" href="https://www.youtube.com/@TheUnlikelyReel?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe</a>
+</div>
+<div id="tip" class="hide"></div>
+
+<section id="works" class="hide" aria-label="Films in the room">
+  <h2>The Unlikely Reel</h2>
+  <div style="font-size:13px;color:#9a958c">Tiny films. Strange worlds. Big imagination. AI-made short films, hung on the walls of a small 3D room.</div>
+  <h3>Mochi &amp; Friends</h3>
+  <ol>
+    <li><a data-id="MvZdlRJcGZY" href="https://www.youtube.com/shorts/MvZdlRJcGZY">POV: your cat won't let you close a door</a></li>
+    <li><a data-id="8r2T2ESJ1e8" href="https://www.youtube.com/shorts/8r2T2ESJ1e8">POV: you sat in your cat's spot</a></li>
+  </ol>
+  <h3>AI Animal World</h3>
+  <ol>
+    <li><a data-id="gA2ibMj-KYM" href="https://www.youtube.com/shorts/gA2ibMj-KYM">The Pistol Shrimp Fires a Bubble, Not Its Claws</a></li>
+    <li><a data-id="oVdgNLRGXik" href="https://www.youtube.com/shorts/oVdgNLRGXik">Hermit Crabs: The Housing Queue</a></li>
+    <li><a data-id="hGF10wT2Rvo" href="https://www.youtube.com/shorts/hGF10wT2Rvo">How a Gecko Lets Go: It Peels Like Tape</a></li>
+  </ol>
+  <h3>Impossible Evidence</h3>
+  <ol>
+    <li><a data-id="0FRCpiVlSE0" href="https://www.youtube.com/shorts/0FRCpiVlSE0">Only One Note Had the Smear</a></li>
+  </ol>
+  <div class="sub">More on YouTube: <a href="https://www.youtube.com/@TheUnlikelyReel" target="_blank" rel="noopener">@TheUnlikelyReel</a></div>
+</section>
+
+<div id="modal" class="hide" role="dialog" aria-modal="true">
+  <button class="btn close" id="closeBtn">Close ✕</button>
+  <div class="card">
+    <div class="vid" id="vidBox"></div>
+    <div class="meta">
+      <div class="series" id="mSeries"></div>
+      <h2 id="mTitle"></h2>
+      <p id="mNote"></p>
+      <div class="row">
+        <a class="btn" id="mYt" target="_blank" rel="noopener">Open on YouTube</a>
+        <a class="btn red" href="https://www.youtube.com/@TheUnlikelyReel?sub_confirmation=1" target="_blank" rel="noopener">▶ Subscribe</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<noscript><style>#intro{display:none}#works{display:block!important;position:static;margin:8vh auto}body{overflow:auto}</style></noscript>
+<script type="module" src="./app.js?v=20261119"></script>
+</body>
+</html>
