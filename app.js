@@ -230,7 +230,7 @@ const frames = WORKS.map((w, i) => {
   mir.position.set(0, -SCREEN.y, 0.074); mir.scale.y = -1; mir.renderOrder = 0; g.add(mir);
 
   // label plaque to the right of the frame
-  const ptex = plaque(w), pl = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.195), new THREE.MeshStandardMaterial({ map: ptex, roughness: 0.7, emissive: 0xffffff, emissiveIntensity: 0.05, emissiveMap: ptex }));
+  const ptex = plaque(w), pl = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.195), new THREE.MeshStandardMaterial({ map: ptex, roughness: 1, metalness: 0, envMapIntensity: 0, emissive: 0xffffff, emissiveIntensity: 0.05, emissiveMap: ptex }));
   pl.position.set(SCREEN.w / 2 + 0.4, 1.2, 0.012); g.add(pl);
   const plBack = new THREE.Mesh(new THREE.BoxGeometry(0.51, 0.205, 0.008), frameMat); plBack.position.set(SCREEN.w / 2 + 0.4, 1.2, 0.004); g.add(plBack);
 
