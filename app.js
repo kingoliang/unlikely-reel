@@ -382,8 +382,7 @@ function focusWork(i) {
   tweenTo(stand, a.yaw, a.pitch, 1.0, () => openModal(i));
 }
 
-// ---------------------------------------------------------------- wall clips: every film loops; off-screen ones pause to save battery
-const frustum = new THREE.Frustum(), projM = new THREE.Matrix4();
+// ---------------------------------------------------------------- wall clips
 function ensureVideo(f) {
   if (f.video) return f.video;
   const v = document.createElement('video');
@@ -393,18 +392,31 @@ function ensureVideo(f) {
   v.addEventListener('playing', () => { if (f.scrMat.map !== f.vtex) { f.scrMat.map = f.mirMat.map = f.vtex; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; } });
   return v;
 }
-let clipsPaused = false;
+let clipsPaused = false, mobileActive = -1;
+// phone: only the film you're facing plays (battery / heat). desktop: all six loop.
+function pickFacing() {
+  const fwd = new THREE.Vector3(); camera.getWorldDirection(fwd);
+  let best = -1, bestS = Infinity;
+  frames.forEach((f, i) => {
+    const to = f.center.clone().sub(camera.position), d = to.length(); to.normalize();
+    const facing = fwd.dot(to), front = -to.dot(f.normal);
+    if (facing < 0.6 || front < 0.15 || d > 7.5) return;
+    const sc = d * (1.6 - facing) - (i === mobileActive ? 0.6 : 0);
+    if (sc < bestS) { bestS = sc; best = i; }
+  });
+  return best;
+}
 function updateVideos() {
-  projM.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse); frustum.setFromProjectionMatrix(projM);
-  frames.forEach((f) => {
+  if (MOBILE) mobileActive = clipsPaused ? -1 : pickFacing();
+  frames.forEach((f, i) => {
     const v = ensureVideo(f);
-    const toCam = camera.position.clone().sub(f.center);
-    const seen = !clipsPaused && toCam.dot(f.normal) > 0 && frustum.intersectsObject(f.scr);
-    if (seen && v.paused) v.play().catch(() => {});
-    else if (!seen && !v.paused) v.pause();
+    const on = !clipsPaused && (!MOBILE || i === mobileActive);
+    if (on && v.paused) v.play().catch(() => {});
+    else if (!on && !v.paused) v.pause();
+    if (MOBILE && !on && f.scrMat.map !== f.poster) { f.scrMat.map = f.mirMat.map = f.poster; f.scrMat.needsUpdate = f.mirMat.needsUpdate = true; }
   });
 }
-const playAll = () => { clipsPaused = false; frames.forEach((f) => ensureVideo(f).play().catch(() => {})); };
+const playAll = () => { clipsPaused = false; if (MOBILE) updateVideos(); else frames.forEach((f) => ensureVideo(f).play().catch(() => {})); };
 const pauseAll = () => { clipsPaused = true; frames.forEach((f) => f.video && f.video.pause()); };
 // stagger start points so the six loops don't flick in sync
 frames.forEach((f, i) => { const v = ensureVideo(f); v.addEventListener('loadedmetadata', () => { v.currentTime = (i * 1.37) % Math.max(1, v.duration - 0.5); }, { once: true }); });
