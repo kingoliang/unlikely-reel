@@ -196,10 +196,10 @@ const SERIES_COL = { 'Cat POV': '#ffcf3f', 'AI Animal World': '#7fe0c8', 'Imposs
 
 function plaque(w) {
   return canvasTex(512, 200, (c, cw, ch) => {
-    c.fillStyle = '#e8e2d6'; c.fillRect(0, 0, cw, ch);
+    c.fillStyle = '#d9d2c4'; c.fillRect(0, 0, cw, ch);
     c.fillStyle = SERIES_COL[w.series] === '#ffcf3f' ? '#8a6a10' : SERIES_COL[w.series] === '#7fe0c8' ? '#1d6b5c' : '#8a2a22';
     c.font = '600 24px ui-sans-serif, system-ui, sans-serif'; c.fillText(w.series.toUpperCase(), 26, 46);
-    c.fillStyle = '#1c1a17'; c.font = '400 31px Georgia, serif';
+    c.fillStyle = '#0d0c0a'; c.font = '600 32px Georgia, serif';
     const words = w.title.split(' '); let line = '', y = 94;
     for (const wd of words) { const t = line ? line + ' ' + wd : wd; if (c.measureText(t).width > cw - 52) { c.fillText(line, 26, y); line = wd; y += 38; } else line = t; }
     c.fillText(line, 26, y);
@@ -230,7 +230,7 @@ const frames = WORKS.map((w, i) => {
   mir.position.set(0, -SCREEN.y, 0.074); mir.scale.y = -1; mir.renderOrder = 0; g.add(mir);
 
   // label plaque to the right of the frame
-  const ptex = plaque(w), pl = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.195), new THREE.MeshStandardMaterial({ map: ptex, roughness: 0.7, emissive: 0xffffff, emissiveIntensity: 0.18, emissiveMap: ptex }));
+  const ptex = plaque(w), pl = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 0.195), new THREE.MeshStandardMaterial({ map: ptex, roughness: 0.7, emissive: 0xffffff, emissiveIntensity: 0.05, emissiveMap: ptex }));
   pl.position.set(SCREEN.w / 2 + 0.4, 1.2, 0.012); g.add(pl);
   const plBack = new THREE.Mesh(new THREE.BoxGeometry(0.51, 0.205, 0.008), frameMat); plBack.position.set(SCREEN.w / 2 + 0.4, 1.2, 0.004); g.add(plBack);
 
