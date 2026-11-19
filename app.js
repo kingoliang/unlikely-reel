@@ -274,7 +274,7 @@ const frames = WORKS.map((w, i) => {
     tubes('THE UNLIKELY', 92, 92, '#ffcf3f', 300);
     tubes('REEL', 205, 120, '#ff4d3d', 400);
   });
-  const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 0.675), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, color: new THREE.Color(1.7, 1.7, 1.7), depthWrite: false, blending: THREE.AdditiveBlending }));
+  const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.3, 0.675), new THREE.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, color: new THREE.Color(1.15, 1.15, 1.15), depthWrite: false, blending: THREE.AdditiveBlending }));
   sign.position.set(0, 3.02, ROOM.z0 + 0.03); sign.scale.setScalar(0.74); scene.add(sign);
     // (no floor reflection for the sign: it read as a glitch)
   const pl = new THREE.PointLight(0xffb060, 2.4, 4.0, 2); pl.position.set(0, 2.95, ROOM.z0 + 0.5); scene.add(pl);
@@ -284,18 +284,18 @@ const frames = WORKS.map((w, i) => {
     const line = (txt, y, col) => {
       let px = 112; c.font = `800 ${px}px "Helvetica Neue", Arial, sans-serif`;
       while (c.measureText(txt).width > w - 100 && px > 40) { px -= 4; c.font = `800 ${px}px "Helvetica Neue", Arial, sans-serif`; }
-      c.shadowColor = col; c.shadowBlur = 34; c.strokeStyle = col; c.lineWidth = 9; c.strokeText(txt, 40, y);
-      c.shadowBlur = 10; c.strokeStyle = '#fff7e0'; c.lineWidth = 3; c.strokeText(txt, 40, y);
+      c.shadowColor = col; c.shadowBlur = 16; c.strokeStyle = col; c.lineWidth = 7; c.strokeText(txt, 40, y);
+      c.shadowBlur = 0; c.strokeStyle = '#fff3dc'; c.lineWidth = 1.6; c.strokeText(txt, 40, y);
     };
     line('TINY FILMS.', 120, '#ffcf3f');
     line('STRANGE WORLDS.', 320, '#7fe0c8');
     line('BIG IMAGINATION.', 520, '#ff6a5a');
   });
-  const s2 = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 1.875), new THREE.MeshBasicMaterial({ map: tag, transparent: true, toneMapped: false, color: new THREE.Color(1.6, 1.6, 1.6), depthWrite: false, blending: THREE.AdditiveBlending }));
+  const s2 = new THREE.Mesh(new THREE.PlaneGeometry(3.0, 1.875), new THREE.MeshBasicMaterial({ map: tag, transparent: true, toneMapped: false, color: new THREE.Color(0.75, 0.75, 0.75), depthWrite: false, blending: THREE.AdditiveBlending }));
   s2.position.set(ROOM.x1 - 0.03, 1.85, 2.25); s2.rotation.y = -Math.PI / 2; scene.add(s2);
   // colour spill on the wall around the letters
   [[0xffcf3f, 2.45], [0x7fe0c8, 1.85], [0xff6a5a, 1.25]].forEach(([col, y]) => {
-    const l = new THREE.PointLight(col, 1.6, 2.6, 2); l.position.set(ROOM.x1 - 0.45, y, 2.25); scene.add(l);
+    const l = new THREE.PointLight(col, 0.9, 2.6, 2); l.position.set(ROOM.x1 - 0.45, y, 2.25); scene.add(l);
   });
 }
 
