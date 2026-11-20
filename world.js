@@ -375,6 +375,7 @@ function buildWorld() {
 
   // corridor signage: the channel line, standing on the left as you come in
   const neon = []; window.__neon = neon;
+  actors.push(() => { const v = prog * (KEYS.length - 1) > 1.7; neon.forEach((m) => { m.visible = v; }); });
   const lines = [['TINY FILMS.', 0xffcf3f], ['STRANGE WORLDS.', 0x7fe0c8], ['BIG IMAGINATION.', 0xff6a5a]];
   lines.forEach(([t, c], i) => {
     const m = text3d(t, 0.78, sigMat(c, 0.55), { align: 'left' });
