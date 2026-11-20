@@ -11,259 +11,53 @@
 <meta property="og:image" content="https://kingoliang.github.io/unlikely-reel/og.jpg">
 <meta property="og:url" content="https://kingoliang.github.io/unlikely-reel/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#0d0c0a">
+<meta name="theme-color" content="#0b0a08">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦆</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261119i">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Instrument+Serif&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="media/fonts/bsd900.typeface.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="world.css?v=20261120a">
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }</script>
 </head>
 <body>
-<div class="grain" aria-hidden="true"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="scroll" aria-hidden="true"></div>
+<div id="load" aria-hidden="true"><span>THE UNLIKELY REEL</span><i></i></div>
 
-<header class="top">
-  <a class="mark" href="#">THE UNLIKELY REEL</a>
-  <nav><a href="#cat">Cat POV</a><a href="#ani">Animal World</a><a href="#evi">Evidence</a><a href="room/">3D room</a></nav>
-  <a class="sub" href="https://www.youtube.com/@TheUnlikelyReel?sub_confirmation=1" target="_blank" rel="noopener">Subscribe</a>
-</header>
-
-<main>
-<section class="hero3d" aria-label="The Unlikely Reel">
-  <div class="stage">
-    <canvas id="gl" aria-hidden="true"></canvas>
-    <div class="ov">
-      <p class="kicker">Now showing · 17 small films on one endless reel</p>
-      <h1><span>The</span><span>Unlikely</span><span class="y">Reel</span></h1>
-      <p class="tag">Tiny films. Strange worlds. <em>Big imagination.</em></p>
-    </div>
-    <div class="hud" aria-hidden="true"><span class="no" id="hudNo"></span><b id="hudT"></b><span class="hint">click to watch</span></div>
-    <p class="cue" aria-hidden="true"><span>Scroll to fly in</span><i></i></p>
-    <p class="cue2" aria-hidden="true">Hover a frame · click to watch</p>
-  </div>
-</section>
-
-<section class="prog p-cat" id="cat">
-  <div class="phead">
-    <span class="pnum">01</span>
-    <h2>Cat POV</h2>
-    <p class="logline">Mochi has opinions about doors, cans, carriers, suitcases and the word “vet”. You are mostly wrong.</p>
-  </div>
-  <div class="strip-wrap">
-  <div class="strip" tabindex="0" aria-label="Cat POV">
-    <div class="edge top" aria-hidden="true"><span>UNLIKELY ▸ 5219 · C</span><span>SAFETY FILM</span><span>▸ C09</span></div>
-    <ol class="cells">
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/MvZdlRJcGZY" data-id="MvZdlRJcGZY" aria-label="Watch: Your cat won&#x27;t let you close a door">
-    <video muted loop playsinline preload="none" poster="media/MvZdlRJcGZY.jpg" data-src="media/MvZdlRJcGZY.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C01</span><span class="dur">0:20</span></div>
-  <h4>Your cat won&#x27;t let you close a door</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/8r2T2ESJ1e8" data-id="8r2T2ESJ1e8" aria-label="Watch: You sat in your cat&#x27;s spot">
-    <video muted loop playsinline preload="none" poster="media/8r2T2ESJ1e8.jpg" data-src="media/8r2T2ESJ1e8.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C02</span><span class="dur">0:15</span></div>
-  <h4>You sat in your cat&#x27;s spot</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/jQqBh82W9XI" data-id="jQqBh82W9XI" aria-label="Watch: You opened a can">
-    <video muted loop playsinline preload="none" poster="media/jQqBh82W9XI.jpg" data-src="media/jQqBh82W9XI.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C03</span><span class="dur">0:19</span></div>
-  <h4>You opened a can</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/igDdL9tR6kU" data-id="igDdL9tR6kU" aria-label="Watch: Your cat sees the carrier">
-    <video muted loop playsinline preload="none" poster="media/igDdL9tR6kU.jpg" data-src="media/igDdL9tR6kU.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C04</span><span class="dur">0:22</span></div>
-  <h4>Your cat sees the carrier</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/0hAeECSl5kQ" data-id="0hAeECSl5kQ" aria-label="Watch: You said “vet” out loud">
-    <video muted loop playsinline preload="none" poster="media/0hAeECSl5kQ.jpg" data-src="media/0hAeECSl5kQ.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C05</span><span class="dur">0:14</span></div>
-  <h4>You said “vet” out loud</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/E00yyuxlzi0" data-id="E00yyuxlzi0" aria-label="Watch: Your cat sees the suitcase">
-    <video muted loop playsinline preload="none" poster="media/E00yyuxlzi0.jpg" data-src="media/E00yyuxlzi0.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C06</span><span class="dur">0:33</span></div>
-  <h4>Your cat sees the suitcase</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/OKrbhvYBHs4" data-id="OKrbhvYBHs4" aria-label="Watch: Security cam, 3:14 a.m.">
-    <video muted loop playsinline preload="none" poster="media/OKrbhvYBHs4.jpg" data-src="media/OKrbhvYBHs4.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C07</span><span class="dur">0:12</span></div>
-  <h4>Security cam, 3:14 a.m.</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/eBoubikq_pA" data-id="eBoubikq_pA" aria-label="Watch: The 5 a.m. wake-up service">
-    <video muted loop playsinline preload="none" poster="media/eBoubikq_pA.jpg" data-src="media/eBoubikq_pA.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C08</span><span class="dur">0:16</span></div>
-  <h4>The 5 a.m. wake-up service</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/YJEcIwvRvxI" data-id="YJEcIwvRvxI" aria-label="Watch: Cat IT support">
-    <video muted loop playsinline preload="none" poster="media/YJEcIwvRvxI.jpg" data-src="media/YJEcIwvRvxI.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">C09</span><span class="dur">0:15</span></div>
-  <h4>Cat IT support</h4>
-</li>
-    </ol>
-    <div class="edge bot" aria-hidden="true"><span>◂ CAT POV</span><span>TINY FILMS · STRANGE WORLDS</span><span>▸▸</span></div>
-  </div>
-  <div class="strip-nav"><button class="nav prev" aria-label="Scroll back">←</button><button class="nav next" aria-label="Scroll forward">→</button></div>
-</div>
-</section>
-
-<section class="prog p-ani" id="ani">
-  <div class="phead">
-    <span class="pnum">02</span>
-    <h2>AI Animal World</h2>
-    <p class="logline">A deadpan nature documentary about animals that seem to ignore the rules — with the real science cited underneath.</p>
-  </div>
-  <div class="strip-wrap">
-  <div class="strip" tabindex="0" aria-label="AI Animal World">
-    <div class="edge top" aria-hidden="true"><span>UNLIKELY ▸ 5219 · A</span><span>SAFETY FILM</span><span>▸ A07</span></div>
-    <ol class="cells">
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/gA2ibMj-KYM" data-id="gA2ibMj-KYM" aria-label="Watch: The pistol shrimp fires a bubble">
-    <video muted loop playsinline preload="none" poster="media/gA2ibMj-KYM.jpg" data-src="media/gA2ibMj-KYM.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A01</span><span class="dur">0:34</span></div>
-  <h4>The pistol shrimp fires a bubble</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/oVdgNLRGXik" data-id="oVdgNLRGXik" aria-label="Watch: Hermit crabs: the housing queue">
-    <video muted loop playsinline preload="none" poster="media/oVdgNLRGXik.jpg" data-src="media/oVdgNLRGXik.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A02</span><span class="dur">0:36</span></div>
-  <h4>Hermit crabs: the housing queue</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/hGF10wT2Rvo" data-id="hGF10wT2Rvo" aria-label="Watch: How a gecko lets go">
-    <video muted loop playsinline preload="none" poster="media/hGF10wT2Rvo.jpg" data-src="media/hGF10wT2Rvo.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A03</span><span class="dur">0:36</span></div>
-  <h4>How a gecko lets go</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/tRN_oWYyUzE" data-id="tRN_oWYyUzE" aria-label="Watch: The archerfish shoots its lunch">
-    <video muted loop playsinline preload="none" poster="media/tRN_oWYyUzE.jpg" data-src="media/tRN_oWYyUzE.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A04</span><span class="dur">0:41</span></div>
-  <h4>The archerfish shoots its lunch</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/FGmfKO-5Mp0" data-id="FGmfKO-5Mp0" aria-label="Watch: Sea otters need seatbelts to sleep">
-    <video muted loop playsinline preload="none" poster="media/FGmfKO-5Mp0.jpg" data-src="media/FGmfKO-5Mp0.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A05</span><span class="dur">0:38</span></div>
-  <h4>Sea otters need seatbelts to sleep</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/Su4O4GSIUIg" data-id="Su4O4GSIUIg" aria-label="Watch: New skin in a blink">
-    <video muted loop playsinline preload="none" poster="media/Su4O4GSIUIg.jpg" data-src="media/Su4O4GSIUIg.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A06</span><span class="dur">0:42</span></div>
-  <h4>New skin in a blink</h4>
-</li>
-<li class="cell">
-  <a class="frame" href="https://www.youtube.com/shorts/NBaZx3Nyk84" data-id="NBaZx3Nyk84" aria-label="Watch: This leaf flies away">
-    <video muted loop playsinline preload="none" poster="media/NBaZx3Nyk84.jpg" data-src="media/NBaZx3Nyk84.mp4"></video>
-    <span class="play" aria-hidden="true"></span>
-  </a>
-  <div class="cap"><span class="no">A07</span><span class="dur">0:26</span></div>
-  <h4>This leaf flies away</h4>
-</li>
-    </ol>
-    <div class="edge bot" aria-hidden="true"><span>◂ AI ANIMAL WORLD</span><span>TINY FILMS · STRANGE WORLDS</span><span>▸▸</span></div>
-  </div>
-  <div class="strip-nav"><button class="nav prev" aria-label="Scroll back">←</button><button class="nav next" aria-label="Scroll forward">→</button></div>
-</div>
-  <div class="longs">
-    <h3>Full episodes</h3>
-    <ol>
-<li><a class="long" href="https://www.youtube.com/watch?v=tPUlH7kSbw8" data-id="tPUlH7kSbw8">
-  <span class="thumb"><img loading="lazy" src="media/ep/tPUlH7kSbw8.jpg" alt="" width="720" height="405"></span>
-  <span class="lmeta"><span class="no">EP 01 · 2:45</span><span class="lt">Capybara: the most unbothered animal on Earth</span><span class="ln">Episode 1. A crocodile swims past. He doesn&#x27;t blink.</span></span>
-</a></li>
-<li><a class="long" href="https://www.youtube.com/watch?v=QQFx0MmiiyY" data-id="QQFx0MmiiyY">
-  <span class="thumb"><img loading="lazy" src="media/ep/QQFx0MmiiyY.jpg" alt="" width="720" height="405"></span>
-  <span class="lmeta"><span class="no">EP 02 · 2:36</span><span class="lt">The honey badger has never lost an argument</span><span class="ln">A cobra, a bee colony, a lion, and a very concerned narrator.</span></span>
-</a></li>
-<li><a class="long" href="https://www.youtube.com/watch?v=6Z4BDWPUAlI" data-id="6Z4BDWPUAlI">
-  <span class="thumb"><img loading="lazy" src="media/ep/6Z4BDWPUAlI.jpg" alt="" width="720" height="405"></span>
-  <span class="lmeta"><span class="no">EP 03 · 9:30</span><span class="lt">10 animals that break physics</span><span class="ln">Counted down from strange to absurd.</span></span>
-</a></li>
-    </ol>
-  </div>
-</section>
-
-<section class="prog p-evi" id="evi">
-  <div class="phead">
-    <span class="pnum">03</span>
-    <h2>Impossible Evidence</h2>
-    <p class="logline">Narrated mysteries built around one object that should not exist. A work of fiction.</p>
-  </div>
-  <div class="case">
-    <div class="exhibit">
-      <span class="tagline">Exhibit A</span>
-      <a class="frame" href="https://www.youtube.com/shorts/0FRCpiVlSE0" data-id="0FRCpiVlSE0" aria-label="Watch: Only one note had the smear">
-        <video muted loop playsinline preload="none" poster="media/0FRCpiVlSE0.jpg" data-src="media/0FRCpiVlSE0.mp4"></video>
-        <span class="play" aria-hidden="true"></span>
-      </a>
-      <h4>Only one note had the smear</h4>
-      <p>Both notes looked like her handwriting. Only one had the smear.</p>
-    </div>
-    <ol class="files">
-<li><a class="long" href="https://www.youtube.com/watch?v=yrbCWg2WU9I" data-id="yrbCWg2WU9I">
-  <span class="thumb"><img loading="lazy" src="media/ep/yrbCWg2WU9I.jpg" alt="" width="720" height="405"></span>
-  <span class="lmeta"><span class="no">EP 01 · 8:33</span><span class="lt">Who was leaving notes in her own handwriting?</span><span class="ln">For thirty-one mornings, Lena finds notes on her fridge in her own handwriting — until one mentions a cat she has never owned.</span></span>
-</a></li>
-<li><a class="long" href="https://www.youtube.com/watch?v=pUfBu1Ae7zI" data-id="pUfBu1Ae7zI">
-  <span class="thumb"><img loading="lazy" src="media/ep/pUfBu1Ae7zI.jpg" alt="" width="720" height="405"></span>
-  <span class="lmeta"><span class="no">EP 02 · 9:30</span><span class="lt">Why is she in a photo taken before she arrived?</span><span class="ln">A photo restorer finds herself in a 1998 flood photograph, wearing a vest she received today.</span></span>
-</a></li>
-    </ol>
-  </div>
-</section>
-
-<section class="room">
-  <a href="room/">
-    <span class="no">04 · Interval</span>
-    <span class="rt">Step into the screening room</span>
-    <span class="rd">The same films on the walls of a small 3D cinema. Drag to look, click a frame to watch.</span>
-    <span class="ra">Enter →</span>
-  </a>
-</section>
+<main class="sr">
+  <h1>The Unlikely Reel</h1>
+  <p>Tiny films. Strange worlds. Big imagination.</p>
+  <section data-stop="cat"><h2>01 Cat POV</h2><p>Mochi has opinions about doors, cans, carriers, suitcases and the word “vet”.</p><ol>
+<li><a href="https://www.youtube.com/shorts/MvZdlRJcGZY" data-id="MvZdlRJcGZY">Your cat won&#x27;t let you close a door</a> — Close it: a paw under the door in three seconds. Open it: “I don&#x27;t want in. I want the door open.” (0:20)</li>
+<li><a href="https://www.youtube.com/shorts/8r2T2ESJ1e8" data-id="8r2T2ESJ1e8">You sat in your cat&#x27;s spot</a> — There are five other seats. He&#x27;s aware. (0:15)</li>
+<li><a href="https://www.youtube.com/shorts/jQqBh82W9XI" data-id="jQqBh82W9XI">You opened a can</a> — The can popped. Mochi ran. It was corn. (0:19)</li>
+<li><a href="https://www.youtube.com/shorts/igDdL9tR6kU" data-id="igDdL9tR6kU">Your cat sees the carrier</a> — He knows exactly what that box means. (0:22)</li>
+<li><a href="https://www.youtube.com/shorts/0hAeECSl5kQ" data-id="0hAeECSl5kQ">You said “vet” out loud</a> — 0.3 seconds later: “You&#x27;ve got the wrong cat.” (0:14)</li>
+<li><a href="https://www.youtube.com/shorts/E00yyuxlzi0" data-id="E00yyuxlzi0">Your cat sees the suitcase</a> — He did not take the vacation news well. (0:33)</li>
+<li><a href="https://www.youtube.com/shorts/OKrbhvYBHs4" data-id="OKrbhvYBHs4">Security cam, 3:14 a.m.</a> — CAM 01: paws on the fridge. CAM 03: he&#x27;s inside the fridge. (0:12)</li>
+<li><a href="https://www.youtube.com/shorts/eBoubikq_pA" data-id="eBoubikq_pA">The 5 a.m. wake-up service</a> — A paw tap. A sit on your chest. Then it upgrades. (0:16)</li>
+<li><a href="https://www.youtube.com/shorts/YJEcIwvRvxI" data-id="YJEcIwvRvxI">Cat IT support</a> — Three minutes to the deadline. IT arrives and lies down on the laptop. (0:15)</li>
+  </ol></section>
+  <section data-stop="ani"><h2>02 AI Animal World</h2><p>A deadpan nature documentary about animals that seem to ignore the rules.</p><ol>
+<li><a href="https://www.youtube.com/shorts/gA2ibMj-KYM" data-id="gA2ibMj-KYM">The pistol shrimp fires a bubble</a> — The bang comes from a collapsing bubble, not the claws. (0:34)</li>
+<li><a href="https://www.youtube.com/shorts/oVdgNLRGXik" data-id="oVdgNLRGXik">Hermit crabs: the housing queue</a> — One empty shell sets off a whole vacancy chain. (0:36)</li>
+<li><a href="https://www.youtube.com/shorts/hGF10wT2Rvo" data-id="hGF10wT2Rvo">How a gecko lets go</a> — Millions of tiny hairs. To let go, it peels its toes off like tape. (0:36)</li>
+<li><a href="https://www.youtube.com/shorts/tRN_oWYyUzE" data-id="tRN_oWYyUzE">The archerfish shoots its lunch</a> — A jet of water, aimed through a surface that bends light. (0:41)</li>
+<li><a href="https://www.youtube.com/shorts/FGmfKO-5Mp0" data-id="FGmfKO-5Mp0">Sea otters need seatbelts to sleep</a> — They wrap themselves in kelp so they don&#x27;t drift apart. (0:38)</li>
+<li><a href="https://www.youtube.com/shorts/Su4O4GSIUIg" data-id="Su4O4GSIUIg">New skin in a blink</a> — A cuttlefish turns sand-coloured, grain by grain. (0:42)</li>
+<li><a href="https://www.youtube.com/shorts/NBaZx3Nyk84" data-id="NBaZx3Nyk84">This leaf flies away</a> — A dry brown leaf on a twig. Then it opens, flashes blue, and goes. (0:26)</li>
+  </ol><h3>Full episodes</h3><ol>
+<li><a href="https://www.youtube.com/watch?v=tPUlH7kSbw8" data-id="tPUlH7kSbw8">Capybara: the most unbothered animal on Earth</a> — Episode 1. A crocodile swims past. He doesn&#x27;t blink. (2:45)</li>
+<li><a href="https://www.youtube.com/watch?v=QQFx0MmiiyY" data-id="QQFx0MmiiyY">The honey badger has never lost an argument</a> — A cobra, a bee colony, a lion, and a very concerned narrator. (2:36)</li>
+<li><a href="https://www.youtube.com/watch?v=6Z4BDWPUAlI" data-id="6Z4BDWPUAlI">10 animals that break physics</a> — Counted down from strange to absurd. (9:30)</li>
+  </ol></section>
+  <section data-stop="evi"><h2>03 Impossible Evidence</h2><p>Narrated mysteries built around one object that should not exist. A work of fiction.</p><ol>
+<li><a href="https://www.youtube.com/shorts/0FRCpiVlSE0" data-id="0FRCpiVlSE0">Only one note had the smear</a> — Both notes looked like her handwriting. Only one had the smear. (0:16)</li>
+<li><a href="https://www.youtube.com/watch?v=yrbCWg2WU9I" data-id="yrbCWg2WU9I">Who was leaving notes in her own handwriting?</a> — For thirty-one mornings, Lena finds notes on her fridge in her own handwriting — until one mentions a cat she has never owned. (8:33)</li>
+<li><a href="https://www.youtube.com/watch?v=pUfBu1Ae7zI" data-id="pUfBu1Ae7zI">Why is she in a photo taken before she arrived?</a> — A photo restorer finds herself in a 1998 flood photograph, wearing a vest she received today. (9:30)</li>
+  </ol></section>
+  <section data-stop="end"><p><a href="https://www.youtube.com/@TheUnlikelyReel?sub_confirmation=1">Subscribe on YouTube</a> · <a href="room/">The 3D screening room</a></p></section>
 </main>
-
-<footer>
-  <a class="big-sub" href="https://www.youtube.com/@TheUnlikelyReel?sub_confirmation=1" target="_blank" rel="noopener"><span>New films most days.</span><b>Subscribe on YouTube →</b></a>
-  <p class="fine"><span>@TheUnlikelyReel</span><span>Made with AI tools. Impossible Evidence is fiction.</span><span>Room built with three.js</span></p>
-</footer>
 
 <div id="lb" class="lb" hidden role="dialog" aria-modal="true" aria-labelledby="lbT">
   <button class="lb-x" id="lbX" aria-label="Close">Close ✕</button>
@@ -280,8 +74,7 @@
   <button class="lb-n next" id="lbNx" aria-label="Next film">→</button>
 </div>
 
-<script>window.FILMS = [{"id": "MvZdlRJcGZY", "title": "Your cat won't let you close a door", "note": "Close it: a paw under the door in three seconds. Open it: “I don't want in. I want the door open.”", "dur": 20, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "8r2T2ESJ1e8", "title": "You sat in your cat's spot", "note": "There are five other seats. He's aware.", "dur": 15, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "jQqBh82W9XI", "title": "You opened a can", "note": "The can popped. Mochi ran. It was corn.", "dur": 19, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "igDdL9tR6kU", "title": "Your cat sees the carrier", "note": "He knows exactly what that box means.", "dur": 22, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "0hAeECSl5kQ", "title": "You said “vet” out loud", "note": "0.3 seconds later: “You've got the wrong cat.”", "dur": 14, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "E00yyuxlzi0", "title": "Your cat sees the suitcase", "note": "He did not take the vacation news well.", "dur": 33, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "OKrbhvYBHs4", "title": "Security cam, 3:14 a.m.", "note": "CAM 01: paws on the fridge. CAM 03: he's inside the fridge.", "dur": 12, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "eBoubikq_pA", "title": "The 5 a.m. wake-up service", "note": "A paw tap. A sit on your chest. Then it upgrades.", "dur": 16, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "YJEcIwvRvxI", "title": "Cat IT support", "note": "Three minutes to the deadline. IT arrives and lies down on the laptop.", "dur": 15, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "gA2ibMj-KYM", "title": "The pistol shrimp fires a bubble", "note": "The bang comes from a collapsing bubble, not the claws.", "dur": 34, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "oVdgNLRGXik", "title": "Hermit crabs: the housing queue", "note": "One empty shell sets off a whole vacancy chain.", "dur": 36, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "hGF10wT2Rvo", "title": "How a gecko lets go", "note": "Millions of tiny hairs. To let go, it peels its toes off like tape.", "dur": 36, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "tRN_oWYyUzE", "title": "The archerfish shoots its lunch", "note": "A jet of water, aimed through a surface that bends light.", "dur": 41, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "FGmfKO-5Mp0", "title": "Sea otters need seatbelts to sleep", "note": "They wrap themselves in kelp so they don't drift apart.", "dur": 38, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "Su4O4GSIUIg", "title": "New skin in a blink", "note": "A cuttlefish turns sand-coloured, grain by grain.", "dur": 42, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "NBaZx3Nyk84", "title": "This leaf flies away", "note": "A dry brown leaf on a twig. Then it opens, flashes blue, and goes.", "dur": 26, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "tPUlH7kSbw8", "title": "Capybara: the most unbothered animal on Earth", "note": "Episode 1. A crocodile swims past. He doesn't blink.", "dur": 165, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "QQFx0MmiiyY", "title": "The honey badger has never lost an argument", "note": "A cobra, a bee colony, a lion, and a very concerned narrator.", "dur": 156, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "6Z4BDWPUAlI", "title": "10 animals that break physics", "note": "Counted down from strange to absurd.", "dur": 570, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "0FRCpiVlSE0", "title": "Only one note had the smear", "note": "Both notes looked like her handwriting. Only one had the smear.", "dur": 16, "series": "Impossible Evidence", "s": "evi", "kind": "short"}, {"id": "yrbCWg2WU9I", "title": "Who was leaving notes in her own handwriting?", "note": "For thirty-one mornings, Lena finds notes on her fridge in her own handwriting — until one mentions a cat she has never owned.", "dur": 513, "series": "Impossible Evidence", "s": "evi", "kind": "long"}, {"id": "pUfBu1Ae7zI", "title": "Why is she in a photo taken before she arrived?", "note": "A photo restorer finds herself in a 1998 flood photograph, wearing a vest she received today.", "dur": 570, "series": "Impossible Evidence", "s": "evi", "kind": "long"}]; window.HERO = ["MvZdlRJcGZY", "gA2ibMj-KYM", "8r2T2ESJ1e8", "hGF10wT2Rvo", "0FRCpiVlSE0"];</script>
-<script src="site.js?v=20261119i" defer></script>
-<script type="module" src="hero3d.js?v=20261119i"></script>
+<script>window.FILMS = [{"id": "MvZdlRJcGZY", "title": "Your cat won't let you close a door", "note": "Close it: a paw under the door in three seconds. Open it: “I don't want in. I want the door open.”", "dur": 20, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "8r2T2ESJ1e8", "title": "You sat in your cat's spot", "note": "There are five other seats. He's aware.", "dur": 15, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "jQqBh82W9XI", "title": "You opened a can", "note": "The can popped. Mochi ran. It was corn.", "dur": 19, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "igDdL9tR6kU", "title": "Your cat sees the carrier", "note": "He knows exactly what that box means.", "dur": 22, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "0hAeECSl5kQ", "title": "You said “vet” out loud", "note": "0.3 seconds later: “You've got the wrong cat.”", "dur": 14, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "E00yyuxlzi0", "title": "Your cat sees the suitcase", "note": "He did not take the vacation news well.", "dur": 33, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "OKrbhvYBHs4", "title": "Security cam, 3:14 a.m.", "note": "CAM 01: paws on the fridge. CAM 03: he's inside the fridge.", "dur": 12, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "eBoubikq_pA", "title": "The 5 a.m. wake-up service", "note": "A paw tap. A sit on your chest. Then it upgrades.", "dur": 16, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "YJEcIwvRvxI", "title": "Cat IT support", "note": "Three minutes to the deadline. IT arrives and lies down on the laptop.", "dur": 15, "series": "Cat POV", "s": "cat", "kind": "short"}, {"id": "gA2ibMj-KYM", "title": "The pistol shrimp fires a bubble", "note": "The bang comes from a collapsing bubble, not the claws.", "dur": 34, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "oVdgNLRGXik", "title": "Hermit crabs: the housing queue", "note": "One empty shell sets off a whole vacancy chain.", "dur": 36, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "hGF10wT2Rvo", "title": "How a gecko lets go", "note": "Millions of tiny hairs. To let go, it peels its toes off like tape.", "dur": 36, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "tRN_oWYyUzE", "title": "The archerfish shoots its lunch", "note": "A jet of water, aimed through a surface that bends light.", "dur": 41, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "FGmfKO-5Mp0", "title": "Sea otters need seatbelts to sleep", "note": "They wrap themselves in kelp so they don't drift apart.", "dur": 38, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "Su4O4GSIUIg", "title": "New skin in a blink", "note": "A cuttlefish turns sand-coloured, grain by grain.", "dur": 42, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "NBaZx3Nyk84", "title": "This leaf flies away", "note": "A dry brown leaf on a twig. Then it opens, flashes blue, and goes.", "dur": 26, "series": "AI Animal World", "s": "ani", "kind": "short"}, {"id": "tPUlH7kSbw8", "title": "Capybara: the most unbothered animal on Earth", "note": "Episode 1. A crocodile swims past. He doesn't blink.", "dur": 165, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "QQFx0MmiiyY", "title": "The honey badger has never lost an argument", "note": "A cobra, a bee colony, a lion, and a very concerned narrator.", "dur": 156, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "6Z4BDWPUAlI", "title": "10 animals that break physics", "note": "Counted down from strange to absurd.", "dur": 570, "series": "AI Animal World", "s": "ani", "kind": "long"}, {"id": "0FRCpiVlSE0", "title": "Only one note had the smear", "note": "Both notes looked like her handwriting. Only one had the smear.", "dur": 16, "series": "Impossible Evidence", "s": "evi", "kind": "short"}, {"id": "yrbCWg2WU9I", "title": "Who was leaving notes in her own handwriting?", "note": "For thirty-one mornings, Lena finds notes on her fridge in her own handwriting — until one mentions a cat she has never owned.", "dur": 513, "series": "Impossible Evidence", "s": "evi", "kind": "long"}, {"id": "pUfBu1Ae7zI", "title": "Why is she in a photo taken before she arrived?", "note": "A photo restorer finds herself in a 1998 flood photograph, wearing a vest she received today.", "dur": 570, "series": "Impossible Evidence", "s": "evi", "kind": "long"}];</script>
+<script type="module" src="world.js?v=20261120a"></script>
 </body>
 </html>
